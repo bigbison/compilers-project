@@ -20,8 +20,8 @@ public class SymTabEntryImpl
     private String name;                     // entry name
     private SymTab symTab;                   // parent symbol table
     private ArrayList<Integer> lineNumbers;  // source line numbers
-    private int numOccurances;
-    
+    private int numberSeen;
+
     /**
      * Constructor.
      * @param name the name of the entry.
@@ -32,7 +32,6 @@ public class SymTabEntryImpl
         this.name = name;
         this.symTab = symTab;
         this.lineNumbers = new ArrayList<Integer>();
-        
     }
 
     /**
@@ -70,10 +69,6 @@ public class SymTabEntryImpl
     {
         return lineNumbers;
     }
-    
-    public int getNumberOccurances() {
-    	return lineNumbers.size();
-    }
 
     /**
      * Set an attribute of the entry.
@@ -94,4 +89,6 @@ public class SymTabEntryImpl
     {
         return get(key);
     }
+
+
 }

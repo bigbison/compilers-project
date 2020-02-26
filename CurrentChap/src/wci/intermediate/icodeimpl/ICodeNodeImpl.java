@@ -1,4 +1,5 @@
 package wci.intermediate.icodeimpl;
+import wci.intermediate.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import wci.intermediate.*;
+import wci.intermediate.ICodeFactory;
 
 /**
  * <h1>ICodeNodeImpl</h1>
@@ -107,12 +108,12 @@ public class ICodeNodeImpl
         ICodeNodeImpl copy =
             (ICodeNodeImpl) ICodeFactory.createICodeNode(type);
 
-        Set<Map.Entry<ICodeKey, Object>> attributes = entrySet();
-        Iterator<Map.Entry<ICodeKey, Object>> it = attributes.iterator();
+        Set<Entry<ICodeKey, Object>> attributes = entrySet();
+        Iterator<Entry<ICodeKey, Object>> it = attributes.iterator();
 
         // Copy attributes
         while (it.hasNext()) {
-            Map.Entry<ICodeKey, Object> attribute = it.next();
+            Entry<ICodeKey, Object> attribute = it.next();
             copy.put(attribute.getKey(), attribute.getValue());
         }
 

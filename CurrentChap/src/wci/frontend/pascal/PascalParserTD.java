@@ -1,16 +1,15 @@
 package wci.frontend.pascal;
 
+import java.util.EnumSet;
+
 import wci.frontend.*;
-import wci.frontend.pascal.parsers.StatementParser;
+import wci.frontend.pascal.parsers.*;
 import wci.intermediate.*;
 import wci.message.*;
 
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
-import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
 import static wci.message.MessageType.PARSER_SUMMARY;
-
-import java.util.EnumSet;
 
 /**
  * <h1>PascalParserTD</h1>
@@ -34,8 +33,8 @@ public class PascalParserTD extends Parser
     }
 
     /**
-     * Parse a Pascal source program and generate the symbol table
-     * and the intermediate code.
+     * Constructor for subclasses.
+     * @param parent the parent parser.
      */
     public PascalParserTD(PascalParserTD parent)
     {
@@ -107,7 +106,7 @@ public class PascalParserTD extends Parser
     {
         return errorHandler.getErrorCount();
     }
-    
+
     /**
      * Synchronize the parser.
      * @param syncSet the set of token types for synchronizing the parser.
@@ -115,7 +114,7 @@ public class PascalParserTD extends Parser
      * @throws Exception if an error occurred.
      */
     public Token synchronize(EnumSet syncSet)
-        throws Exception
+            throws Exception
     {
         Token token = currentToken();
 
@@ -131,9 +130,9 @@ public class PascalParserTD extends Parser
             do {
                 token = nextToken();
             } while (!(token instanceof EofToken) &&
-                     !syncSet.contains(token.getType()));
-       }
+                    !syncSet.contains(token.getType()));
+        }
 
-       return token;
+        return token;
     }
 }

@@ -1,7 +1,6 @@
 package wci.util;
-import java.lang.StringBuilder;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 
 import wci.intermediate.*;
 import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
@@ -70,7 +69,7 @@ public class CrossReferencer
             // followed by the line numbers.
             System.out.print(String.format(NAME_FORMAT, entry.getName()));
             if (lineNumbers != null) {
-            	System.out.print(("[" + entry.getNumberOccurances() + "] "));
+                System.out.print("[" + lineNumbers.size() + "] ");
                 for (Integer lineNumber : lineNumbers) {
                     System.out.print(String.format(NUMBER_FORMAT, lineNumber));
                 }

@@ -38,7 +38,10 @@ public class PascalWordToken extends PascalToken
 
         // Get the word characters (letter or digit).  The scanner has
         // already determined that the first character is a letter.
-        while (Character.isLetterOrDigit(currentChar) || (currentChar == '_' && peekChar() != ' ')) {
+        while (Character.isLetterOrDigit(currentChar) || currentChar == '_') {
+            if (currentChar == '_' && peekChar() == ' ') {
+                break;
+            }
             textBuffer.append(currentChar);
             currentChar = nextChar();  // consume character
         }

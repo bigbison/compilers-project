@@ -1,6 +1,7 @@
 package wci.intermediate.icodeimpl;
 
 import wci.intermediate.ICodeNodeType;
+import wci.intermediate.*;
 
 /**
  * <h1>ICodeNodeType</h1>

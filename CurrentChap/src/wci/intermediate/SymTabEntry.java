@@ -43,7 +43,6 @@ public interface SymTabEntry
      */
     public void setAttribute(SymTabKey key, Object value);
 
-    public int getNumberOccurances();
     /**
      * Get the value of an attribute of the entry.
      * @param key the attribute key.

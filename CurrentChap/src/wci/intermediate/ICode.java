@@ -1,5 +1,6 @@
 package wci.intermediate;
 
+
 /**
  * <h1>ICode</h1>
  *

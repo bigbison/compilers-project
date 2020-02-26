@@ -16,10 +16,10 @@ import wci.frontend.TokenType;
 public enum PascalTokenType implements TokenType
 {
     // Reserved words.
-    AND, ARRAY, BEGIN, CASE, DIV, DO, DOWNTO, ELSE, END,
-    FILE, FOR, FUNCTION, IF, IN, MOD, NIL, NOT,
-    OF, OR, PACKED, PROCEDURE, PROGRAM, REPEAT, SET,
-    THEN, TO, UNTIL, VAR, WHILE, WITH,
+    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END,
+    FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
+    OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET,
+    THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
 
     // Special symbols.
     PLUS("+"), MINUS("-"), STAR("*"), SLASH("/"), COLON_EQUALS(":="),
@@ -45,7 +45,7 @@ public enum PascalTokenType implements TokenType
      */
     PascalTokenType()
     {
-        this.text = this.toString().toLowerCase();
+        this.text = this.toString();
     }
 
     /**

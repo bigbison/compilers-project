@@ -24,7 +24,7 @@ public class PascalNumberToken extends PascalToken
      * @throws Exception if an error occurred.
      */
     public PascalNumberToken(Source source)
-            throws Exception
+        throws Exception
     {
         super(source);
     }
@@ -34,7 +34,7 @@ public class PascalNumberToken extends PascalToken
      * @throws Exception if an error occurred.
      */
     protected void extract()
-            throws Exception
+        throws Exception
     {
         StringBuilder textBuffer = new StringBuilder();  // token's characters
         extractNumber(textBuffer);
@@ -47,12 +47,13 @@ public class PascalNumberToken extends PascalToken
      * @throws Exception if an error occurred.
      */
     protected void extractNumber(StringBuilder textBuffer)
-            throws Exception
+        throws Exception
     {
         String wholeDigits = null;     // digits before the decimal point
         String fractionDigits = null;  // digits after the decimal point
         String exponentDigits = null;  // exponent digits
         char exponentSign = '+';       // exponent sign '+' or '-'
+        boolean sawDotDot = false;     // true if saw .. token
         char currentChar;              // current character
 
         type = INTEGER;  // assume INTEGER token type for now
@@ -67,24 +68,26 @@ public class PascalNumberToken extends PascalToken
         // It could be a decimal point or the start of a .. token.
         currentChar = currentChar();
         if (currentChar == '.') {
-            /*if (peekChar() == '.') {
+            if (peekChar() == '.') {
                 sawDotDot = true;  // it's a ".." token, so don't consume it
-            }*/
-            type = REAL;  // decimal point, so token type is REAL
-            textBuffer.append(currentChar);
-            currentChar = nextChar();  // consume decimal point
+            }
+            else {
+                type = REAL;  // decimal point, so token type is REAL
+                textBuffer.append(currentChar);
+                currentChar = nextChar();  // consume decimal point
 
-            // Collect the digits of the fraction part of the number.
-            fractionDigits = unsignedIntegerDigits(textBuffer);
-            if (type == ERROR) {
-                return;
+                // Collect the digits of the fraction part of the number.
+                fractionDigits = unsignedIntegerDigits(textBuffer);
+                if (type == ERROR) {
+                    return;
+                }
             }
         }
 
         // Is there an exponent part?
         // There cannot be an exponent if we already saw a ".." token.
         currentChar = currentChar();
-        /*if (!sawDotDot && ((currentChar == 'E') || (currentChar == 'e'))) {
+        if (!sawDotDot && ((currentChar == 'E') || (currentChar == 'e'))) {
             type = REAL;  // exponent, so token type is REAL
             textBuffer.append(currentChar);
             currentChar = nextChar();  // consume 'E' or 'e'
@@ -98,7 +101,7 @@ public class PascalNumberToken extends PascalToken
 
             // Extract the digits of the exponent.
             exponentDigits = unsignedIntegerDigits(textBuffer);
-        }*/
+        }
 
         // Compute the value of an integer number token.
         if (type == INTEGER) {
@@ -112,7 +115,7 @@ public class PascalNumberToken extends PascalToken
         // Compute the value of a real number token.
         else if (type == REAL) {
             float floatValue = computeFloatValue(wholeDigits, fractionDigits,
-                    exponentDigits, exponentSign);
+                                                 exponentDigits, exponentSign);
 
             if (type != ERROR) {
                 value = new Float(floatValue);
@@ -127,7 +130,7 @@ public class PascalNumberToken extends PascalToken
      * @throws Exception if an error occurred.
      */
     private String unsignedIntegerDigits(StringBuilder textBuffer)
-            throws Exception
+        throws Exception
     {
         char currentChar = currentChar();
 
@@ -171,7 +174,7 @@ public class PascalNumberToken extends PascalToken
         while ((index < digits.length()) && (integerValue >= prevValue)) {
             prevValue = integerValue;
             integerValue = 10*integerValue +
-                    Character.getNumericValue(digits.charAt(index++));
+                           Character.getNumericValue(digits.charAt(index++));
         }
 
         // No overflow:  Return the integer value.
@@ -225,7 +228,7 @@ public class PascalNumberToken extends PascalToken
         int index = 0;
         while (index < digits.length()) {
             floatValue = 10*floatValue +
-                    Character.getNumericValue(digits.charAt(index++));
+                         Character.getNumericValue(digits.charAt(index++));
         }
 
         // Adjust the float value based on the exponent value.

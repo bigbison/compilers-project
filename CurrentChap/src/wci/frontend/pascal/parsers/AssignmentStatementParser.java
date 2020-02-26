@@ -1,5 +1,7 @@
 package wci.frontend.pascal.parsers;
 
+import java.util.EnumSet;
+
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
@@ -7,9 +9,6 @@ import wci.intermediate.*;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
-
-import java.util.EnumSet;
-
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 
 /**
@@ -26,13 +25,17 @@ public class AssignmentStatementParser extends StatementParser
      * Constructor.
      * @param parent the parent parser.
      */
-	  // Synchronization set for the := token.
-    private static final EnumSet<PascalTokenType> COLON_EQUALS_SET =
-        ExpressionParser.EXPR_START_SET.clone();
-    
     public AssignmentStatementParser(PascalParserTD parent)
     {
         super(parent);
+    }
+
+    // Synchronization set for the := token.
+    private static final EnumSet<PascalTokenType> COLON_EQUALS_SET =
+        ExpressionParser.EXPR_START_SET.clone();
+    static {
+        COLON_EQUALS_SET.add(COLON_EQUALS);
+        COLON_EQUALS_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
     /**

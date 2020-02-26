@@ -32,12 +32,6 @@ public class ExpressionParser extends StatementParser
     {
         super(parent);
     }
-    
- // Synchronization set for starting an expression.
-    static final EnumSet<PascalTokenType> EXPR_START_SET =
-        EnumSet.of(PLUS, MINUS, IDENTIFIER, INTEGER, REAL, STRING,
-                   PascalTokenType.NOT, LEFT_PAREN);
-
 
     /**
      * Parse an expression.
@@ -50,6 +44,11 @@ public class ExpressionParser extends StatementParser
     {
         return parseExpression(token);
     }
+
+    // Synchronization set for starting an expression.
+    static final EnumSet<PascalTokenType> EXPR_START_SET =
+            EnumSet.of(PLUS, MINUS, IDENTIFIER, INTEGER, REAL, STRING,
+                    PascalTokenType.NOT, LEFT_PAREN);
 
     // Set of relational operators.
     private static final EnumSet<PascalTokenType> REL_OPS =
@@ -125,7 +124,7 @@ public class ExpressionParser extends StatementParser
      * @return the root of the generated parse subtree.
      * @throws Exception if an error occurred.
      */
-    private ICodeNode parseFactor(Token token)
+    private ICodeNode parseFactor(Token token) //factor
         throws Exception
     {
         TokenType signType = null;  // type of leading sign (if any)

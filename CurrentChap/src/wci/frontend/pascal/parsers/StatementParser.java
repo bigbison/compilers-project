@@ -1,5 +1,7 @@
 package wci.frontend.pascal.parsers;
 
+import java.util.EnumSet;
+
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
@@ -7,9 +9,6 @@ import wci.intermediate.*;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
-
-import java.util.EnumSet;
-
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 
 /**
@@ -26,7 +25,7 @@ public class StatementParser extends PascalParserTD
      * Constructor.
      * @param parent the parent parser.
      */
-	public StatementParser(PascalParserTD parent)
+    public StatementParser(PascalParserTD parent)
     {
         super(parent);
     }
@@ -48,70 +47,70 @@ public class StatementParser extends PascalParserTD
      * @throws Exception if an error occurred.
      */
     public ICodeNode parse(Token token)
-            throws Exception
-        {
-            ICodeNode statementNode = null;
+        throws Exception
+    {
+        ICodeNode statementNode = null;
 
-            switch ((PascalTokenType) token.getType()) {
+        switch ((PascalTokenType) token.getType()) {
 
-                case BEGIN: {
-                    CompoundStatementParser compoundParser =
-                        new CompoundStatementParser(this);
-                    statementNode = compoundParser.parse(token);
-                    break;
-                }
-
-                // An assignment statement begins with a variable's identifier.
-                case IDENTIFIER: {
-                    AssignmentStatementParser assignmentParser =
-                        new AssignmentStatementParser(this);
-                    statementNode = assignmentParser.parse(token);
-                    break;
-                }
-
-                case REPEAT: {
-                    RepeatStatementParser repeatParser =
-                        new RepeatStatementParser(this);
-                    statementNode = repeatParser.parse(token);
-                    break;
-                }
-
-                case WHILE: {
-                    WhileStatementParser whileParser =
-                        new WhileStatementParser(this);
-                    statementNode = whileParser.parse(token);
-                    break;
-                }
-
-                case FOR: {
-                    ForStatementParser forParser = new ForStatementParser(this);
-                    statementNode = forParser.parse(token);
-                    break;
-                }
-
-                case IF: {
-                    IfStatementParser ifParser = new IfStatementParser(this);
-                    statementNode = ifParser.parse(token);
-                    break;
-                }
-
-                case CASE: {
-                    CaseStatementParser caseParser = new CaseStatementParser(this);
-                    statementNode = caseParser.parse(token);
-                    break;
-                }
-
-                default: {
-                    statementNode = ICodeFactory.createICodeNode(NO_OP);
-                    break;
-                }
+            case BEGIN: {
+                CompoundStatementParser compoundParser =
+                    new CompoundStatementParser(this);
+                statementNode = compoundParser.parse(token);
+                break;
             }
 
-            // Set the current line number as an attribute.
-            setLineNumber(statementNode, token);
+            // An assignment statement begins with a variable's identifier.
+            case IDENTIFIER: {
+                AssignmentStatementParser assignmentParser =
+                    new AssignmentStatementParser(this);
+                statementNode = assignmentParser.parse(token);
+                break;
+            }
 
-            return statementNode;
+            case REPEAT: {
+                RepeatStatementParser repeatParser =
+                    new RepeatStatementParser(this);
+                statementNode = repeatParser.parse(token);
+                break;
+            }
+
+            case WHILE: {
+                WhileStatementParser whileParser =
+                    new WhileStatementParser(this);
+                statementNode = whileParser.parse(token);
+                break;
+            }
+
+            case FOR: {
+                ForStatementParser forParser = new ForStatementParser(this);
+                statementNode = forParser.parse(token);
+                break;
+            }
+
+            case IF: {
+                IfStatementParser ifParser = new IfStatementParser(this);
+                statementNode = ifParser.parse(token);
+                break;
+            }
+
+            case CASE: {
+                CaseStatementParser caseParser = new CaseStatementParser(this);
+                statementNode = caseParser.parse(token);
+                break;
+            }
+
+            default: {
+                statementNode = ICodeFactory.createICodeNode(NO_OP);
+                break;
+            }
         }
+
+        // Set the current line number as an attribute.
+        setLineNumber(statementNode, token);
+
+        return statementNode;
+    }
 
     /**
      * Set the current line number as a statement node attribute.
